@@ -11,11 +11,8 @@ import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { usePathname } from 'expo-router';
 
-// import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AuthContextProvider from '../context/AuthContext';
-// import TweetsApiContextProvider from '../lib/api/tweets';
 
-// const client = new QueryClient();
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -30,8 +27,8 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    // SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    // ...FontAwesome.font,
+    SpaceMono: require('../../assets/fonts/SpaceMono-Regular.ttf'),
+    ...FontAwesome.font,
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
