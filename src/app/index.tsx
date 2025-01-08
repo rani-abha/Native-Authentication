@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity,Dimensions,GestureResponderEve
 import { Ionicons } from '@expo/vector-icons';
 import { Canvas, Fill, LinearGradient, vec, interpolateColors } from '@shopify/react-native-skia';
 import { useSharedValue, useDerivedValue, withRepeat, withTiming , withSpring, useAnimatedStyle } from 'react-native-reanimated';
-import { useRouter } from 'expo-router';
 import { useAuth } from '../context/AuthContext';
 import * as SecureStore from 'expo-secure-store';
 
@@ -43,7 +42,6 @@ const AnimatedButton: React.FC<AnimatedButtonProps>  = ({ onPress, title }) => {
 };
 
 export default function HomeScreen() {
-  const router = useRouter();
   const { removeAuthToken, clearSavedEmail} = useAuth();
 
   React.useEffect(() => {
@@ -81,46 +79,6 @@ export default function HomeScreen() {
 
 
   return (
-    // <View style={styles.container}>
-    //   {/* <Text style={styles.text}>Welcome to the Home Screen!</Text> */}
-    //   <View style={styles.semiCircle} />
-    //   <View style={styles.rectangle} />
-    //   <TouchableOpacity style={styles.button} onPress={() => router.push('/signIn')}>
-    //   <Text style={styles.buttonText}>Go to Sign In</Text>
-
-    //     <Ionicons name="chevron-forward-outline" size={24} color="white" />
-    //   </TouchableOpacity>
-
-    //   <TouchableOpacity style={styles.button} onPress={async() => {
-    //     await removeAuthToken()
-    //     SecureStore.getItemAsync('authToken')
-    //   .then((storedToken) => {
-    //     console.log('Token from SecureStore (then):', storedToken);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error retrieving token:', error);
-    //   });
-    //   }}>
-    //   <Text style={styles.buttonText}>remove token</Text>
-
-    //     <Ionicons name="chevron-forward-outline" size={24} color="white" />
-    //   </TouchableOpacity>
-
-    //   <TouchableOpacity style={styles.button} onPress={async() => {
-    //     await clearSavedEmail()
-    //     SecureStore.getItemAsync('savedEmail')
-    //   .then((storedToken) => {
-    //     console.log('Token from SecureStore (then):', storedToken);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error retrieving token:', error);
-    //   });
-    //   }}>
-    //   <Text style={styles.buttonText}>remove email</Text>
-
-    //     <Ionicons name="chevron-forward-outline" size={24} color="white" />
-    //   </TouchableOpacity>
-    // </View>
     <View style={styles.container}>
     <Canvas style={styles.canvas}>
       <Fill>
@@ -176,7 +134,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 10,
     margin: 10,
-    backgroundColor: '#6200EE',
     borderRadius: 5,
   },
   buttonText: {

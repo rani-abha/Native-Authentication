@@ -1,21 +1,17 @@
-import {
-    View,
-    Text,
-    TextInput,
-    Pressable,
-    StyleSheet,
-    Alert,
-  } from 'react-native';
-  import React from 'react';
-  import { useRouter } from 'expo-router';
-  import { Formik } from 'formik';
+import React from 'react';
+import { useRouter } from 'expo-router';
+import { Formik } from 'formik';
 import { useAuth } from '../../context/AuthContext';
+import { View,Text,Pressable,TextInput, StyleSheet,Alert } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
+import AnimationComponent from '@/src/components/AnimationComponent';
 
 
-  const signIn = () => {
-    
-    const router = useRouter();
+
+export default function signIn() {
+
+
+  const router = useRouter();
 
     const { saveEmail } = useAuth();
 
@@ -33,7 +29,7 @@ import * as SecureStore from 'expo-secure-store';
       const errors: { email?: string; password?: string } = {};
       if (!values.email) {
         errors.email = 'Email is required';
-      } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+      } else if (!/\S+@\S+\.\S+/.test(values.email) && values.email.length > 1) {
         errors.email = 'Invalid email format';
       }
       if (!values.password) {
@@ -58,16 +54,24 @@ import * as SecureStore from 'expo-secure-store';
         }
       }
     };
-  
-    return (
+
+
+  return (
       <Formik
       initialValues={{ email: '', password: '' }}
       validate={validate}
       onSubmit={onSignIn}
-    >
+    >    
+      
       {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-      <View style={styles.container}>
-        <Text style={styles.label}>Sign in or {" "}<Text
+         <View style={styles.container}>
+
+       <AnimationComponent/>
+
+      <View 
+      style={styles.container_}>
+        <Text style={styles.label}>Sign in or {" "}
+        <Text
           style={styles.linkText}
           onPress={() => router.push('/signUp')}
         >
@@ -76,7 +80,7 @@ import * as SecureStore from 'expo-secure-store';
   
         <TextInput
           placeholder="Email"
-          style={styles.input}
+          style={styles.input_}
           onChangeText={handleChange('email')}
           onBlur={handleBlur('email')}
           value={values.email}
@@ -86,7 +90,7 @@ import * as SecureStore from 'expo-secure-store';
 
         <TextInput
           placeholder="Password"
-          style={styles.input}
+          style={styles.input_}
           onChangeText={handleChange('password')}
           onBlur={handleBlur('password')}
           value={values.password}
@@ -94,55 +98,78 @@ import * as SecureStore from 'expo-secure-store';
         />
         {touched.password && errors.password && <Text style={styles.error}>{errors.password}</Text>}
        
-        <Pressable style={styles.button} onPress={()=>handleSubmit()}>
-          <Text style={styles.buttonText}>Sign in</Text>
+        <Pressable style={styles.button_} onPress={()=>handleSubmit()}>
+          <Text style={styles.buttonText_}>Sign in</Text>
         </Pressable>
+        </View>
       </View>)}
       </Formik>
-    );
-  };
+        );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  circle: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: 'blue',
+  },
+  container_: {
+    backgroundColor: 'white',
+    opacity:0.8,
+    justifyContent: 'center',
+    textAlign:"center",
+    padding: 24,
+    marginHorizontal:20
+  },
+  label: {
+    fontSize: 24,
+    fontWeight:'bold',
+    marginVertical: 5,
+    color: 'gray',
+    padding:10,
+    textAlign:"center",
+  },
+  linkText: {
+    fontSize: 24,
+    marginVertical: 5,
+    color: '#555D50',
+  },
+  error: {
+    marginVertical: 3,
+    color: 'red',
+    paddingVertical:1,
+    paddingHorizontal: 7,
+    paddingBottom:5
+
+  },
+  input_: {
+    backgroundColor:'white',
+   height: 40,
+  borderColor: 'gray',
+  borderWidth: StyleSheet.hairlineWidth,
+  marginBottom: 7,
+  paddingHorizontal: 10,
+  borderRadius:10,
+  marginHorizontal:5,
+  },
+  button_: {
+    backgroundColor: '#050A12',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    marginVertical: 10,
+    marginTop:10
   
-  const styles = StyleSheet.create({
-    container: {
-      backgroundColor: 'white',
-      flex: 1,
-      justifyContent: 'center',
-      padding: 24,
-    },
-    label: {
-      fontSize: 24,
-      marginVertical: 5,
-      color: 'gray',
-    },
-    linkText: {
-      fontSize: 24,
-      marginVertical: 5,
-      color: 'black',
-    },
-    error: {
-      marginVertical: 5,
-      color: 'red',
-    },
-    input: {
-      borderColor: 'gray',
-      borderWidth: StyleSheet.hairlineWidth,
-      padding: 10,
-      fontSize: 20,
-      marginVertical: 5,
-      borderRadius: 10,
-    },
-    button: {
-      backgroundColor: '#050A12',
-      height: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 10,
-      marginVertical: 5,
-    },
-    buttonText: {
-      color: 'white',
-      fontWeight: 'bold',
-    },
-  });
-  
-  export default signIn;
+  },
+  buttonText_: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+
+});

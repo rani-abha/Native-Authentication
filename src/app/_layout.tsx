@@ -20,10 +20,8 @@ export {
 } from 'expo-router';
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '/signIn',
+  initialRouteName: '/index',
 };
-// SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -48,8 +46,7 @@ export default function RootLayout() {
 
   return (
     <>
-      {/* Keep the splash screen open until the assets have loaded. In the future, we should just support async font loading with a native version of font-display. */}
-      {/* {!loaded && <SplashScreen />} */}
+  
       {loaded && <RootLayoutNav />}
     </>
   );
@@ -66,8 +63,7 @@ function RootLayoutNav() {
   return (
     <>
       <AuthContextProvider>
-        {/* <TweetsApiContextProvider> */}
-          {/* <QueryClientProvider client={client}> */}
+
             <ThemeProvider
               value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
             >
@@ -96,8 +92,6 @@ function RootLayoutNav() {
                 
               </Stack>
             </ThemeProvider>
-          {/* </QueryClientProvider> */}
-        {/* </TweetsApiContextProvider> */}
       </AuthContextProvider>
     </>
   );
